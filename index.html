@@ -43,9 +43,10 @@
                 <input type="text" size="16">
             </p>
             <p>
-                <input id="btn_call" type="submit" value="Вызов">
-                <input id="btn_hangUp" type="reset" value="Сброс">
+                <input id="btnCall" type="submit" value="Вызов">
+                <input id="btnHangUp" type="reset" value="Сброс">
             </p>
+            <label style="width: 100%;" align="center" id="txtCallStatus"></label>
         </div>
         
         <!-- after div and css -->
@@ -68,10 +69,10 @@
         <script type="text/javascript" src="./assets/js/bootstrap-collapse.js"></script>
         <script type="text/javascript" src="./assets/js/bootstrap-carousel.js"></script>
         <script type="text/javascript" src="./assets/js/bootstrap-typeahead.js"></script>
-        <audio id="audio_remote" autoplay="autoplay" />     <!--TODO-->
-        <audio id="ringtone" loop src="sounds/ringtone.wav" />
-        <audio id="ringbacktone" loop src="sounds/ringbacktone.wav" />
-        <audio id="dtmfTone" src="sounds/dtmf.wav" />
+        <audio id="audio_remote" autoplay="autoplay" ></audio> <!--отмена preload - для быстроты загрузки страницы-->    <!--TODO-->
+        <audio id="ringtone" loop src="sounds/ringtone.wav" ></audio> 
+        <audio id="ringbacktone" loop src="sounds/ringbacktone.wav" ></audio> 
+        <audio id="dtmfTone" src="sounds/dtmf.wav" ></audio> 
         <!--</here>-->
 
     </body>

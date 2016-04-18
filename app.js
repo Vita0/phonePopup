@@ -5,8 +5,8 @@
     var popup_bar = document.getElementById("popup_bar");
     var btn_close = document.getElementById("btn_close");
     
-    var btn_call = document.getElementById("btn_call");
-    var btn_hangUp = document.getElementById("btn_hangUp");
+    var btnCall = document.getElementById("btnCall");
+    var btnHangUp = document.getElementById("btnHangUp");
 
     var offset = {x: 0, y: 0};
 
@@ -40,10 +40,10 @@
 
     btn_popup.onclick = function (e) {
         // reset div position
-        popup.style.top = Math.round($(window).height() * 7 / 10) + "px";
-        popup.style.left = Math.round($(window).width() * 7 / 10) + "px";
+        popup.style.top = Math.round($(window).height() * 50 / 100) + "px";
+        popup.style.left = Math.round($(window).width() * 70 / 100) + "px";
         popup.style.width = "200px";
-        popup.style.height = "130px";
+        popup.style.height = "180px";
         popup.style.display = "block";
         // register
         //register();
@@ -60,7 +60,7 @@
 var sTransferNumber;
 var oRingTone, oRingbackTone;
 var oSipStack, oSipSessionRegister, oSipSessionCall, oSipSessionTransferCall;
-var videoRemote, videoLocal, audioRemote;
+var audioRemote;
 var bFullScreen = false;
 var oNotifICall;
 var bDisableVideo = false;
@@ -68,25 +68,32 @@ var viewVideoLocal, viewVideoRemote, viewLocalScreencast; // <video> (webrtc) or
 var oConfigCall;
 var oReadyStateTimer;
 
+var txtDisplayName = "103";
+var txtPrivateIdentity = "103";
+var txtPublicIdentity = "sip:103@192.168.0.105";
+var txtPassword = "103pas";
+var txtRealm = "192.168.0.105";
+var txtPhoneNumber = "101"; //кому звоним
+
 window.onload = function () {
     if(window.console) {
         window.console.info("location=" + window.location);
     }
     audioRemote = document.getElementById("audio_remote");
 
-    divCallCtrl.onmousemove = onDivCallCtrlMouseMove;
-
     // set debug level
     SIPml.setDebugLevel((window.localStorage && window.localStorage.getItem('org.doubango.expert.disable_debug') == "true") ? "error" : "info");
 
-    loadCredentials();
-    loadCallOptions();
+    //loadCredentials();
+    //loadCallOptions();
 
     // Initialize call button
-    uiBtnCallSetText("Call");
+    //uiBtnCallSetText("Call");
 
     var getPVal = function (PName) {
         var query = window.location.search.substring(1);
+        console.log("lol");
+        console.log(query);
         var vars = query.split('&');
         for (var i = 0; i < vars.length; i++) {
             var pair = vars[i].split('=');
@@ -134,6 +141,163 @@ window.onload = function () {
     },
     500);
 };
+
+function postInit() {
+    // check webrtc4all version
+    if (SIPml.isWebRtc4AllSupported() && SIPml.isWebRtc4AllPluginOutdated()) {  //  TODO
+        if (confirm("Your WebRtc4all extension is outdated (" + SIPml.getWebRtc4AllVersion() + "). A new version with critical bug fix is available. Do you want to install it?\nIMPORTANT: You must restart your browser after the installation.")) {
+            window.location = 'http://code.google.com/p/webrtc4all/downloads/list';
+            return;
+        }
+    }
+
+    // check for WebRTC support
+    if (!SIPml.isWebRtcSupported()) {
+        // is it chrome?
+        if (SIPml.getNavigatorFriendlyName() == 'chrome') {
+            if (confirm("You're using an old Chrome version or WebRTC is not enabled.\nDo you want to see how to enable WebRTC?")) {
+                window.location = 'http://www.webrtc.org/running-the-demos';
+            } else {
+                window.location = "index.html";
+            }
+            return;
+        }
+
+        // for now the plugins (WebRTC4all only works on Windows)
+        if (SIPml.getSystemFriendlyName() == 'windows') {
+            // Internet explorer
+            if (SIPml.getNavigatorFriendlyName() == 'ie') {
+                // Check for IE version 
+                if (parseFloat(SIPml.getNavigatorVersion()) < 9.0) {
+                    if (confirm("You are using an old IE version. You need at least version 9. Would you like to update IE?")) {
+                        window.location = 'http://windows.microsoft.com/en-us/internet-explorer/products/ie/home';
+                    } else {
+                        window.location = "index.html";
+                    }
+                }
+
+                // check for WebRTC4all extension
+                if (!SIPml.isWebRtc4AllSupported()) {
+                    if (confirm("webrtc4all extension is not installed. Do you want to install it?\nIMPORTANT: You must restart your browser after the installation.")) {
+                        window.location = 'http://code.google.com/p/webrtc4all/downloads/list';
+                    } else {
+                        // Must do nothing: give the user the chance to accept the extension
+                        // window.location = "index.html";
+                    }
+                }
+                // break page loading ('window.location' won't stop JS execution)
+                if (!SIPml.isWebRtc4AllSupported()) {
+                    return;
+                }
+            } else if (SIPml.getNavigatorFriendlyName() == "safari" || SIPml.getNavigatorFriendlyName() == "firefox" || SIPml.getNavigatorFriendlyName() == "opera") {
+                if (confirm("Your browser don't support WebRTC.\nDo you want to install WebRTC4all extension to enjoy audio/video calls?\nIMPORTANT: You must restart your browser after the installation.")) {
+                    window.location = 'http://code.google.com/p/webrtc4all/downloads/list';
+                } else {
+                    window.location = "index.html";
+                }
+                return;
+            }
+        }
+        // OSX, Unix, Android, iOS...
+        else {
+            if (confirm('WebRTC not supported on your browser.\nDo you want to download a WebRTC-capable browser?')) {
+                window.location = 'https://www.google.com/intl/en/chrome/browser/';
+            } else {
+                window.location = "index.html";
+            }
+            return;
+        }
+    }
+
+    // checks for WebSocket support
+    if (!SIPml.isWebSocketSupported() && !SIPml.isWebRtc4AllSupported()) {
+        if (confirm('Your browser don\'t support WebSockets.\nDo you want to download a WebSocket-capable browser?')) {
+            window.location = 'https://www.google.com/intl/en/chrome/browser/';
+        } else {
+            window.location = "index.html";
+        }
+        return;
+    }
+
+    // FIXME: displays must be per session
+
+    // attachs video displays
+    if (SIPml.isWebRtc4AllSupported()) {
+        viewVideoLocal = document.getElementById("divVideoLocal");
+        viewVideoRemote = document.getElementById("divVideoRemote");
+        viewLocalScreencast = document.getElementById("divScreencastLocal");
+        WebRtc4all_SetDisplays(viewVideoLocal, viewVideoRemote, viewLocalScreencast); // FIXME: move to SIPml.* API
+    } else {
+        viewVideoLocal = videoLocal;
+        viewVideoRemote = videoRemote;
+    }
+
+    if (!SIPml.isWebRtc4AllSupported() && !SIPml.isWebRtcSupported()) {
+        if (confirm('Your browser don\'t support WebRTC.\naudio/video calls will be disabled.\nDo you want to download a WebRTC-capable browser?')) {
+            window.location = 'https://www.google.com/intl/en/chrome/browser/';
+        }
+    }
+
+    btnRegister.disabled = false;
+    document.body.style.cursor = 'default';
+    oConfigCall = {
+        audio_remote: audioRemote,
+        video_local: viewVideoLocal,
+        video_remote: viewVideoRemote,
+        screencast_window_id: 0x00000000, // entire desktop
+        bandwidth: {audio: undefined, video: undefined},
+        video_size: {minWidth: undefined, minHeight: undefined, maxWidth: undefined, maxHeight: undefined},
+        events_listener: {events: '*', listener: onSipEventSession},
+        sip_caps: [
+            {name: '+g.oma.sip-im'},
+            {name: 'language', value: '\"en,fr\"'}
+        ]
+    };
+}
+
+// TODO: load from vtiger
+function loadCredentials() {    // TODO: org.doubango.identity.... replace with vtiger
+    if (window.localStorage) {
+        // IE retuns 'null' if not defined
+        var s_value;
+        if ((s_value = window.localStorage.getItem('org.doubango.identity.display_name')))
+            //txtDisplayName.value = s_value;
+            txtDisplayName = "";
+            window.console.log(s_value);
+        if ((s_value = window.localStorage.getItem('org.doubango.identity.impi')))
+            //txtPrivateIdentity.value = s_value;
+            txtPrivateIdentity = "";
+        if ((s_value = window.localStorage.getItem('org.doubango.identity.impu')))
+            //txtPublicIdentity.value = s_value;
+            txtPublicIdentity = "";
+        if ((s_value = window.localStorage.getItem('org.doubango.identity.password')))
+            //txtPassword.value = s_value;
+            txtPassword = "";
+        if ((s_value = window.localStorage.getItem('org.doubango.identity.realm')))
+            //txtRealm.value = s_value;
+            txtRealm = "";
+    } else {
+        // FIXME
+//        txtDisplayName.value = "005";
+//        txtPrivateIdentity.value = "005";
+//        txtPublicIdentity.value = "sip:005@sip2sip.info";
+//        txtPassword.value = "005";
+//        txtRealm.value = "sip2sip.info";
+//        txtPhoneNumber.value = "701020";
+    }
+};
+
+function loadCallOptions() {    // TODO: org.doubango..... replace with vtiger
+    if (window.localStorage) {
+        var s_value;
+        if ((s_value = window.localStorage.getItem('org.doubango.call.phone_number')))
+            //txtPhoneNumber.value = s_value;
+            txtPhoneNumber = "";
+        bDisableVideo = (window.localStorage.getItem('org.doubango.expert.disable_video') == "true");
+
+        txtCallStatus.innerHTML = '<i>Video ' + (bDisableVideo ? 'disabled' : 'enabled') + '</i>';
+    }
+}
 
 // register sipml5
 function register()
