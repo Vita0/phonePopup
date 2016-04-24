@@ -153,6 +153,11 @@ window.onload = function () {
     sipRegister();
 };
 
+window.onbeforeunload = function () {
+    sipUnRegister();
+    //return "Do you really want to close?";
+};
+
 function postInit() {
     // check webrtc4all version
     if (SIPml.isWebRtc4AllSupported() && SIPml.isWebRtc4AllPluginOutdated()) {  //  TODO
