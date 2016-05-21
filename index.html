@@ -6,7 +6,7 @@
         <!--<here>-->
         <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>  <!--TODO-->
         <script src="SIPml-api.js?svn=230" type="text/javascript"></script>
-                <button id="btn_popup">88005553366</button>
+                Телефон Иванова Ивана <button id="btn_popup">номер todo</button>
         <div id="popup" style="
              display:none;
              background-color:#ccccee;
@@ -39,8 +39,12 @@
                 <input type="text" size="16">
             </p>
             <p>
+<!--                
                 <input id="btnCall" type="submit" value="Вызов">
                 <input id="btnHangUp" type="reset" value="Сброс">
+-->
+                <input type="button" id="btnCall" class="btn btn-primary" value="Call" onclick='sipCall();' />
+                <input type="button" id="btnHangUp" class="btn btn-primary" value="HangUp" onclick='sipHangUp();' />
             </p>
 
             <div style="font-size:8pt;">
@@ -71,12 +75,12 @@
     <body>
         <!--<here>-->
 
-        
+<!--        
         <p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p>
         <p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p>
         <p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p>
         <p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p><p>bla</p>
-        
+-->
         <!-- Placed at the end of the document so the pages load faster -->
         <script type="text/javascript" src="./assets/js/jquery.js"></script>    <!--TODO-->
         <script type="text/javascript" src="./assets/js/bootstrap-transition.js"></script>
