@@ -1,0 +1,158 @@
+
+YOUR ARE USING DEBUG CODE. PLEASE USE CODE UNDER 'release' FOLDER or check https://code.google.com/p/sipml5/wiki/FAQ#How_to_reduce_the_size_of_the_scripts_before_deploying for more information on how to amalgamate the code.
+SIPml-a...svn=230 (line 19)
+Media resource http://192.168.0.105/sipml5/sounds/dtmf.wav could not be decoded.
+location=http://192.168.0.105/sipml5/call.htm
+call.htm (line 156)
+User-Agent=Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.7.1
+tsk_uti...svn=230 (line 116)
+WebSocket supported = yes
+tsk_uti...svn=230 (line 116)
+Navigator friendly name = firefox
+tsk_uti...svn=230 (line 116)
+OS friendly name = unknown
+tsk_uti...svn=230 (line 116)
+Have WebRTC = yes
+tsk_uti...svn=230 (line 116)
+Have GUM = yes
+tsk_uti...svn=230 (line 116)
+Engine initialized
+tsk_uti...svn=230 (line 116)
+s_websocket_server_url=ws://192.168.0.105:8088/ws
+tsk_uti...svn=230 (line 116)
+s_sip_outboundproxy_url=(null)
+tsk_uti...svn=230 (line 116)
+b_rtcweb_breaker_enabled=no
+tsk_uti...svn=230 (line 116)
+b_click2call_enabled=no
+tsk_uti...svn=230 (line 116)
+b_early_ims=yes
+tsk_uti...svn=230 (line 116)
+b_enable_media_stream_cache=no
+tsk_uti...svn=230 (line 116)
+o_bandwidth={}
+tsk_uti...svn=230 (line 116)
+o_video_size={}
+tsk_uti...svn=230 (line 116)
+SIP stack start: proxy='ns313841.ovh.net:10060', realm='<sip:192.168.0.105>', impi='103', impu='"103"<sip:103@192.168.0.105>'
+tsk_uti...svn=230 (line 116)
+Connecting to 'ws://192.168.0.105:8088/ws'
+tsk_uti...svn=230 (line 116)
+==stack event = starting
+tsk_uti...svn=230 (line 116)
+__tsip_transport_ws_onopen
+tsk_uti...svn=230 (line 116)
+==stack event = started
+tsk_uti...svn=230 (line 116)
+State machine: tsip_dialog_register_Started_2_InProgress_X_oRegister
+tsk_uti...svn=230 (line 116)
+
+SEND: REGISTER sip:192.168.0.105 SIP/2.0
+Via: SIP/2.0/WS df7jal23ls0d.invalid;branch=z9hG4bKu3oJnC7Z6PGc50Ic3roPZ455OZVqNhe1;rport
+From: "103"<sip:103@192.168.0.105>;tag=n5FtJWftH5LwyuAH2TnV
+To: "103"<sip:103@192.168.0.105>
+Contact: "103"<sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws>;expires=200;click2call=no;+g.oma.sip-im;+audio;language="en,fr"
+Call-ID: f10bf392-cd5b-e3f3-92d1-855320522bbb
+CSeq: 36990 REGISTER
+Content-Length: 0
+Max-Forwards: 70
+User-Agent: IM-client/OMA1.0 sipML5-v1.2015.03.18
+Organization: Doubango Telecom
+Supported: path
+
+tsk_uti...svn=230 (line 116)
+==session event = connecting
+tsk_uti...svn=230 (line 116)
+__tsip_transport_ws_onmessage
+tsk_uti...svn=230 (line 116)
+
+recv=SIP/2.0 401 Unauthorized
+Via: SIP/2.0/WS df7jal23ls0d.invalid;rport=36963;received=192.168.0.105;branch=z9hG4bKu3oJnC7Z6PGc50Ic3roPZ455OZVqNhe1
+From: "103"<sip:103@192.168.0.105>;tag=n5FtJWftH5LwyuAH2TnV
+To: "103"<sip:103@192.168.0.105>;tag=as7adfd5a8
+Call-ID: f10bf392-cd5b-e3f3-92d1-855320522bbb
+CSeq: 36990 REGISTER
+Content-Length: 0
+Server: Asterisk PBX 13.7.2
+Allow: INVITE,ACK,CANCEL,OPTIONS,BYE,REFER,SUBSCRIBE,NOTIFY,INFO,PUBLISH,MESSAGE
+Supported: replaces,timer
+WWW-Authenticate: Digest realm="192.168.0.105",nonce="62dbedff",stale=FALSE,algorithm=MD5
+
+tsk_uti...svn=230 (line 116)
+State machine: tsip_dialog_register_InProgress_2_InProgress_X_401_407_421_494
+tsk_uti...svn=230 (line 116)
+
+SEND: REGISTER sip:192.168.0.105 SIP/2.0
+Via: SIP/2.0/WS df7jal23ls0d.invalid;branch=z9hG4bKLMa4oLTIc8oX3To76ap7DDeIq8wpdqHv;rport
+From: "103"<sip:103@192.168.0.105>;tag=n5FtJWftH5LwyuAH2TnV
+To: "103"<sip:103@192.168.0.105>
+Contact: "103"<sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws>;expires=200;click2call=no;+g.oma.sip-im;+audio;language="en,fr"
+Call-ID: f10bf392-cd5b-e3f3-92d1-855320522bbb
+CSeq: 36991 REGISTER
+Content-Length: 0
+Max-Forwards: 70
+Authorization: Digest username="103",realm="192.168.0.105",nonce="62dbedff",uri="sip:192.168.0.105",response="86aeab4874617ced35fcaf3b37733b92",algorithm=MD5
+User-Agent: IM-client/OMA1.0 sipML5-v1.2015.03.18
+Organization: Doubango Telecom
+Supported: path
+
+tsk_uti...svn=230 (line 116)
+2
+==session event = sent_request
+tsk_uti...svn=230 (line 116)
+__tsip_transport_ws_onmessage
+tsk_uti...svn=230 (line 116)
+
+recv=OPTIONS sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws SIP/2.0
+Via: SIP/2.0/WS 192.168.0.105:5060;rport;branch=z9hG4bK421f1543
+From: "asterisk"<sip:asterisk@192.168.0.105>;tag=as5363985d
+To: <sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws>
+Contact: <sip:asterisk@192.168.0.105:5060;transport=WS>
+Call-ID: 518991a656ebacde15eeaa5a105f5a72@192.168.0.105:5060
+CSeq: 102 OPTIONS
+Content-Length: 0
+Max-Forwards: 70
+User-Agent: Asterisk PBX 13.7.2
+Date: 21 May 2016 18:05:28 GMT;21
+Allow: INVITE,ACK,CANCEL,OPTIONS,BYE,REFER,SUBSCRIBE,NOTIFY,INFO,PUBLISH,MESSAGE
+Supported: replaces,timer
+
+tsk_uti...svn=230 (line 116)
+__tsip_transport_ws_onmessage
+tsk_uti...svn=230 (line 116)
+
+recv=SIP/2.0 200 OK
+Via: SIP/2.0/WS df7jal23ls0d.invalid;rport=36963;received=192.168.0.105;branch=z9hG4bKLMa4oLTIc8oX3To76ap7DDeIq8wpdqHv
+From: "103"<sip:103@192.168.0.105>;tag=n5FtJWftH5LwyuAH2TnV
+To: "103"<sip:103@192.168.0.105>;tag=as7adfd5a8
+Contact: <sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws>;expires=200
+Call-ID: f10bf392-cd5b-e3f3-92d1-855320522bbb
+CSeq: 36991 REGISTER
+Expires: 200
+Content-Length: 0
+Server: Asterisk PBX 13.7.2
+Allow: INVITE,ACK,CANCEL,OPTIONS,BYE,REFER,SUBSCRIBE,NOTIFY,INFO,PUBLISH,MESSAGE
+Supported: replaces,timer
+Date: 21 May 2016 18:05:28 GMT;21
+
+tsk_uti...svn=230 (line 116)
+State machine: tsip_dialog_register_InProgress_2_Connected_X_2xx
+tsk_uti...svn=230 (line 116)
+Not implemented
+	
+
+window.console.error(s_msg);
+
+tsk_uti...svn=230 (line 128)
+
+SEND: SIP/2.0 405 Method Not Allowed
+Via: SIP/2.0/WS 192.168.0.105:5060;rport=5060;branch=z9hG4bK421f1543
+From: "asterisk"<sip:asterisk@192.168.0.105>;tag=as5363985d
+To: <sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws>
+Call-ID: 518991a656ebacde15eeaa5a105f5a72@192.168.0.105:5060
+CSeq: 102 OPTIONS
+Content-Length: 0
+
+tsk_uti...svn=230 (line 116)
+==session event = connected
+tsk_uti...svn=230 (line 116)

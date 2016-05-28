@@ -1,0 +1,177 @@
+
+YOUR ARE USING DEBUG CODE. PLEASE USE CODE UNDER 'release' FOLDER or check https://code.google.com/p/sipml5/wiki/FAQ#How_to_reduce_the_size_of_the_scripts_before_deploying for more information on how to amalgamate the code.
+SIPml-a...svn=230 (line 19)
+Media resource http://localhost:8383/phonePopup/sounds/dtmf.wav could not be decoded.
+location=http://localhost:8383/phonePopup/index.html
+app.js (line 94)
+User-Agent=Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0 Iceweasel/38.7.1
+tsk_uti...svn=230 (line 116)
+WebSocket supported = yes
+tsk_uti...svn=230 (line 116)
+Navigator friendly name = firefox
+tsk_uti...svn=230 (line 116)
+OS friendly name = unknown
+tsk_uti...svn=230 (line 116)
+Have WebRTC = yes
+tsk_uti...svn=230 (line 116)
+Have GUM = yes
+tsk_uti...svn=230 (line 116)
+Engine initialized
+tsk_uti...svn=230 (line 116)
+s_websocket_server_url=ws://192.168.0.105:8088/ws
+tsk_uti...svn=230 (line 116)
+s_sip_outboundproxy_url=(null)
+tsk_uti...svn=230 (line 116)
+b_rtcweb_breaker_enabled=no
+tsk_uti...svn=230 (line 116)
+b_click2call_enabled=no
+tsk_uti...svn=230 (line 116)
+b_early_ims=yes
+tsk_uti...svn=230 (line 116)
+b_enable_media_stream_cache=no
+tsk_uti...svn=230 (line 116)
+o_bandwidth={}
+tsk_uti...svn=230 (line 116)
+o_video_size={}
+tsk_uti...svn=230 (line 116)
+SIP stack start: proxy='ns313841.ovh.net:14060', realm='<sip:192.168.0.105>', impi='103', impu='"103"<sip:103@192.168.0.105>'
+tsk_uti...svn=230 (line 116)
+Connecting to 'ws://192.168.0.105:8088/ws'
+tsk_uti...svn=230 (line 116)
+==stack event = starting
+tsk_uti...svn=230 (line 116)
+__tsip_transport_ws_onopen
+tsk_uti...svn=230 (line 116)
+==stack event = started
+tsk_uti...svn=230 (line 116)
+State machine: tsip_dialog_register_Started_2_InProgress_X_oRegister
+tsk_uti...svn=230 (line 116)
+
+SEND: REGISTER sip:192.168.0.105 SIP/2.0
+Via: SIP/2.0/WS df7jal23ls0d.invalid;branch=z9hG4bKAuVFKVTavXLD6zS9JwradVqNK3CxUNSJ;rport
+From: "103"<sip:103@192.168.0.105>;tag=8gyCLuiir6OrxRh9QtJS
+To: "103"<sip:103@192.168.0.105>
+Contact: "103"<sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws>;expires=200;click2call=no;+g.oma.sip-im;+audio;language="en,fr"
+Call-ID: 15917e3e-af78-3db8-4991-b8c05640cf71
+CSeq: 2845 REGISTER
+Content-Length: 0
+Max-Forwards: 70
+User-Agent: IM-client/OMA1.0 sipML5-v1.2015.03.18
+Organization: Doubango Telecom
+Supported: path
+
+tsk_uti...svn=230 (line 116)
+==session event = connecting
+tsk_uti...svn=230 (line 116)
+==session event = sent_request
+tsk_uti...svn=230 (line 116)
+__tsip_transport_ws_onmessage
+tsk_uti...svn=230 (line 116)
+
+recv=SIP/2.0 401 Unauthorized
+Via: SIP/2.0/WS df7jal23ls0d.invalid;rport=37082;received=192.168.0.105;branch=z9hG4bKAuVFKVTavXLD6zS9JwradVqNK3CxUNSJ
+From: "103"<sip:103@192.168.0.105>;tag=8gyCLuiir6OrxRh9QtJS
+To: "103"<sip:103@192.168.0.105>;tag=as2a5016fb
+Call-ID: 15917e3e-af78-3db8-4991-b8c05640cf71
+CSeq: 2845 REGISTER
+Content-Length: 0
+Server: Asterisk PBX 13.7.2
+Allow: INVITE,ACK,CANCEL,OPTIONS,BYE,REFER,SUBSCRIBE,NOTIFY,INFO,PUBLISH,MESSAGE
+Supported: replaces,timer
+WWW-Authenticate: Digest realm="192.168.0.105",nonce="36834aa0",stale=FALSE,algorithm=MD5
+
+tsk_uti...svn=230 (line 116)
+State machine: tsip_dialog_register_InProgress_2_InProgress_X_401_407_421_494
+tsk_uti...svn=230 (line 116)
+
+SEND: REGISTER sip:192.168.0.105 SIP/2.0
+Via: SIP/2.0/WS df7jal23ls0d.invalid;branch=z9hG4bK03BaOzVWBktWNUOGpJ3ODtkrBZes7yKJ;rport
+From: "103"<sip:103@192.168.0.105>;tag=8gyCLuiir6OrxRh9QtJS
+To: "103"<sip:103@192.168.0.105>
+Contact: "103"<sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws>;expires=200;click2call=no;+g.oma.sip-im;+audio;language="en,fr"
+Call-ID: 15917e3e-af78-3db8-4991-b8c05640cf71
+CSeq: 2846 REGISTER
+Content-Length: 0
+Max-Forwards: 70
+Authorization: Digest username="103",realm="192.168.0.105",nonce="36834aa0",uri="sip:192.168.0.105",response="b0777f6bec5103ae37887f5cd9b9e45d",algorithm=MD5
+User-Agent: IM-client/OMA1.0 sipML5-v1.2015.03.18
+Organization: Doubango Telecom
+Supported: path
+
+tsk_uti...svn=230 (line 116)
+__tsip_transport_ws_onmessage
+tsk_uti...svn=230 (line 116)
+
+recv=OPTIONS sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws SIP/2.0
+Via: SIP/2.0/WS 192.168.0.105:5060;rport;branch=z9hG4bK7f52d8ef
+From: "asterisk"<sip:asterisk@192.168.0.105>;tag=as3195dbdd
+To: <sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws>
+Contact: <sip:asterisk@192.168.0.105:5060;transport=WS>
+Call-ID: 5cd5904d55e6a567288a55eb76cb8924@192.168.0.105:5060
+CSeq: 102 OPTIONS
+Content-Length: 0
+Max-Forwards: 70
+User-Agent: Asterisk PBX 13.7.2
+Date: 21 May 2016 18:06:32 GMT;21
+Allow: INVITE,ACK,CANCEL,OPTIONS,BYE,REFER,SUBSCRIBE,NOTIFY,INFO,PUBLISH,MESSAGE
+Supported: replaces,timer
+
+tsk_uti...svn=230 (line 116)
+__tsip_transport_ws_onmessage
+tsk_uti...svn=230 (line 116)
+
+recv=SIP/2.0 200 OK
+Via: SIP/2.0/WS df7jal23ls0d.invalid;rport=37082;received=192.168.0.105;branch=z9hG4bK03BaOzVWBktWNUOGpJ3ODtkrBZes7yKJ
+From: "103"<sip:103@192.168.0.105>;tag=8gyCLuiir6OrxRh9QtJS
+To: "103"<sip:103@192.168.0.105>;tag=as2a5016fb
+Contact: <sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws>;expires=200
+Call-ID: 15917e3e-af78-3db8-4991-b8c05640cf71
+CSeq: 2846 REGISTER
+Expires: 200
+Content-Length: 0
+Server: Asterisk PBX 13.7.2
+Allow: INVITE,ACK,CANCEL,OPTIONS,BYE,REFER,SUBSCRIBE,NOTIFY,INFO,PUBLISH,MESSAGE
+Supported: replaces,timer
+Date: 21 May 2016 18:06:32 GMT;21
+
+tsk_uti...svn=230 (line 116)
+State machine: tsip_dialog_register_InProgress_2_Connected_X_2xx
+tsk_uti...svn=230 (line 116)
+Not implemented
+	
+
+window.console.error(s_msg);
+
+tsk_uti...svn=230 (line 128)
+
+SEND: SIP/2.0 405 Method Not Allowed
+Via: SIP/2.0/WS 192.168.0.105:5060;rport=5060;branch=z9hG4bK7f52d8ef
+From: "asterisk"<sip:asterisk@192.168.0.105>;tag=as3195dbdd
+To: <sip:103@df7jal23ls0d.invalid;rtcweb-breaker=no;transport=ws>
+Call-ID: 5cd5904d55e6a567288a55eb76cb8924@192.168.0.105:5060
+CSeq: 102 OPTIONS
+Content-Length: 0
+
+tsk_uti...svn=230 (line 116)
+==session event = sent_request
+tsk_uti...svn=230 (line 116)
+==session event = connected
+tsk_uti...svn=230 (line 116)
+
+
+Failed to find dialog with this opid [2]
+tsk_utils_log_error()tsk_uti...svn=230 (line 128)
+s_msg = "Failed to find dialog with this opid [2]"
+tsip_session.prototype.__action_handle()tsip_ap...svn=230 (line 26)
+o_action = tsip_action { e_type=1002, ao_headers=[0], line_resp={...}, more...}
+tsip_session.prototype.__action_any()tsip_ap...svn=230 (line 52)
+e_action_type = 1002
+tsip_session.prototype.hangup()tsip_ap...svn=230 (line 62)
+SIPml.Session.Call.prototype.hangup()SIPml.js?svn=230 (line 1719)
+o_conf = Object { events_listener={...}}
+sipHangUp()app.js (line 472)
+onclick()btnHang...nclick (line 1)
+event = click clientX=806, clientY=111
+	
+
+window.console.error(s_msg);

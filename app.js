@@ -5,8 +5,8 @@
     var popup_bar = document.getElementById("popup_bar");
     var btn_close = document.getElementById("btn_close");
     
-    //var btnCall = document.getElementById("btnCall");
-    //var btnHangUp = document.getElementById("btnHangUp");
+    var btnCall = document.getElementById("btnCall");
+    var btnHangUp = document.getElementById("btnHangUp");
 
     var offset = {x: 0, y: 0};
 
@@ -60,11 +60,11 @@
 var sTransferNumber;
 var oRingTone, oRingbackTone;
 var oSipStack, oSipSessionRegister, oSipSessionCall, oSipSessionTransferCall;
-var audioRemote;
+var videoRemote, videoLocal, audioRemote;
 //var bFullScreen = false;
 var oNotifICall;
-//var bDisableVideo = false;
-//var viewVideoLocal, viewVideoRemote, viewLocalScreencast; // <video> (webrtc) or <div> (webrtc4all)
+var bDisableVideo = true;
+var viewVideoLocal, viewVideoRemote, viewLocalScreencast; // <video> (webrtc) or <div> (webrtc4all)
 var oConfigCall;
 var oReadyStateTimer;
 
@@ -93,6 +93,8 @@ window.onload = function () {
     if(window.console) {
         window.console.info("location=" + window.location);
     }
+    //videoLocal = document.getElementById("video_local");
+    //videoRemote = document.getElementById("video_remote");
     audioRemote = document.getElementById("audio_remote");
 
     // set debug level
@@ -177,7 +179,8 @@ function postInit() {
         if (SIPml.getNavigatorFriendlyName() == 'chrome') {
             if (confirm("You're using an old Chrome version or WebRTC is not enabled.\nDo you want to see how to enable WebRTC?")) {
                 window.location = 'http://www.webrtc.org/running-the-demos';
-            } else {
+            }
+            else {
                 window.location = "index.html";
             }
             return;
@@ -191,7 +194,8 @@ function postInit() {
                 if (parseFloat(SIPml.getNavigatorVersion()) < 9.0) {
                     if (confirm("You are using an old IE version. You need at least version 9. Would you like to update IE?")) {
                         window.location = 'http://windows.microsoft.com/en-us/internet-explorer/products/ie/home';
-                    } else {
+                    }
+                    else {
                         window.location = "index.html";
                     }
                 }
@@ -200,7 +204,8 @@ function postInit() {
                 if (!SIPml.isWebRtc4AllSupported()) {
                     if (confirm("webrtc4all extension is not installed. Do you want to install it?\nIMPORTANT: You must restart your browser after the installation.")) {
                         window.location = 'http://code.google.com/p/webrtc4all/downloads/list';
-                    } else {
+                    } 
+                    else {
                         // Must do nothing: give the user the chance to accept the extension
                         // window.location = "index.html";
                     }
@@ -209,10 +214,12 @@ function postInit() {
                 if (!SIPml.isWebRtc4AllSupported()) {
                     return;
                 }
-            } else if (SIPml.getNavigatorFriendlyName() == "safari" || SIPml.getNavigatorFriendlyName() == "firefox" || SIPml.getNavigatorFriendlyName() == "opera") {
+            } 
+            else if (SIPml.getNavigatorFriendlyName() == "safari" || SIPml.getNavigatorFriendlyName() == "firefox" || SIPml.getNavigatorFriendlyName() == "opera") {
                 if (confirm("Your browser don't support WebRTC.\nDo you want to install WebRTC4all extension to enjoy audio/video calls?\nIMPORTANT: You must restart your browser after the installation.")) {
                     window.location = 'http://code.google.com/p/webrtc4all/downloads/list';
-                } else {
+                } 
+                else {
                     window.location = "index.html";
                 }
                 return;
@@ -222,7 +229,8 @@ function postInit() {
         else {
             if (confirm('WebRTC not supported on your browser.\nDo you want to download a WebRTC-capable browser?')) {
                 window.location = 'https://www.google.com/intl/en/chrome/browser/';
-            } else {
+            } 
+            else {
                 window.location = "index.html";
             }
             return;
@@ -233,7 +241,8 @@ function postInit() {
     if (!SIPml.isWebSocketSupported() && !SIPml.isWebRtc4AllSupported()) {
         if (confirm('Your browser don\'t support WebSockets.\nDo you want to download a WebSocket-capable browser?')) {
             window.location = 'https://www.google.com/intl/en/chrome/browser/';
-        } else {
+        } 
+        else {
             window.location = "index.html";
         }
         return;
@@ -257,9 +266,12 @@ function postInit() {
             window.location = 'https://www.google.com/intl/en/chrome/browser/';
         }
     }
+    
     document.body.style.cursor = 'default';
     oConfigCall = {
         audio_remote: audioRemote,
+        //video_local: videoLocal,
+        //video_remote: videoRemote,
         video_local: undefined,
         video_remote: undefined,
         screencast_window_id: 0x00000000, // entire desktop
@@ -362,7 +374,6 @@ function sipRegister() {
     try {
         if (!txtRealm || !txtPrivateIdentity || !txtPublicIdentity) {
             txtRegStatus.innerHTML = '<b>No data about SIP account</b>';
-            console.log(txtRealm);
             return;
         }
         var o_impu = tsip_uri.prototype.Parse(txtPublicIdentity);
@@ -424,7 +435,8 @@ function sipUnRegister() {
 }
 
 // makes a call (SIP INVITE)
-function sipCall() {
+function sipCall(s_type) {
+    console.log("sipCall log = "+s_type);
     if (oSipStack && !oSipSessionCall && !tsk_string_is_null_or_empty(txtPhoneNumber)) {
 //        if(s_type == 'call-screenshare') {
 //            if(!SIPml.isScreenShareSupported()) {
@@ -448,7 +460,7 @@ function sipCall() {
 //        }
 
         // create call session
-        oSipSessionCall = oSipStack.newSession('call-audio', oConfigCall);
+        oSipSessionCall = oSipStack.newSession(s_type, oConfigCall);
         // make call
         if (oSipSessionCall.call(txtPhoneNumber) != 0) {
             oSipSessionCall = null;
@@ -493,6 +505,18 @@ function stopRingbackTone() {
     catch (e) { }
 }
 
+function showNotifICall(s_number) {
+    // permission already asked when we registered
+    if (window.webkitNotifications && window.webkitNotifications.checkPermission() == 0) {
+        if (oNotifICall) {
+            oNotifICall.cancel();
+        }
+        oNotifICall = window.webkitNotifications.createNotification('images/sipml-34x39.png', 'Incaming call', 'Incoming call from ' + s_number);
+        oNotifICall.onclose = function () { oNotifICall = null; };
+        oNotifICall.show();
+    }
+}
+
 function uiOnConnectionEvent(b_connected, b_connecting) { // should be enum: connecting, connected, terminating, terminated
     //btnRegister.disabled = b_connected || b_connecting;
     //btnUnRegister.disabled = !b_connected && !b_connecting;
@@ -506,7 +530,7 @@ function uiBtnCallSetText(s_text) {
             {
                 //var bDisableCallBtnOptions = (window.localStorage && window.localStorage.getItem('org.doubango.expert.disable_callbtn_options') == "true");
                 //btnCall.value = btnCall.innerHTML = bDisableCallBtnOptions ? 'Call' : 'Call <span id="spanCaret" class="caret">';
-                btnCall.value = "Call";
+                btnCall.value = btnCall.innerHTML = "Call";
                 //btnCall.setAttribute("class", bDisableCallBtnOptions ? "btn btn-primary" : "btn btn-primary dropdown-toggle");
                 //btnCall.onclick = bDisableCallBtnOptions ? function(){ sipCall(bDisableVideo ? 'call-audio' : 'call-audiovideo'); } : null;
                 btnCall.onclick = function(){ sipCall('call-audio'); };
@@ -525,24 +549,13 @@ function uiBtnCallSetText(s_text) {
                 btnCall.value = btnCall.innerHTML = s_text;
                 //btnCall.setAttribute("class", "btn btn-primary");
                 btnCall.onclick = function(){ sipCall('call-audio'); };
+                //btnCall.disabled = true;//todo
 //                ulCallOptions.style.visibility = "hidden";
 //                if(ulCallOptions.parentNode == divBtnCallGroup){
 //                    document.body.appendChild(ulCallOptions);
 //                }
                 break;
             }
-    }
-}
-
-function showNotifICall(s_number) {
-    // permission already asked when we registered
-    if (window.webkitNotifications && window.webkitNotifications.checkPermission() == 0) {
-        if (oNotifICall) {
-            oNotifICall.cancel();
-        }
-        oNotifICall = window.webkitNotifications.createNotification('images/sipml-34x39.png', 'Incaming call', 'Incoming call from ' + s_number);
-        oNotifICall.onclose = function () { oNotifICall = null; };
-        oNotifICall.show();
     }
 }
 
@@ -598,12 +611,13 @@ function onSipEventStack(e /*SIPml.Stack.Event*/) {
                 }
                 catch (e) {
                     txtRegStatus.value = txtRegStatus.innerHTML = "<b>1:" + e + "</b>";
-                    btnRegister.disabled = false;
+                    //btnRegister.disabled = false;
                 }
                 break;
             }
         case 'stopping': case 'stopped': case 'failed_to_start': case 'failed_to_stop':
             {
+                console.log("newer");
                 var bFailure = (e.type == 'failed_to_start') || (e.type == 'failed_to_stop');
                 oSipStack = null;
                 oSipSessionRegister = null;
@@ -682,7 +696,7 @@ function onSipEventSession(e /* SIPml.Session.Event */) {
                     btnHangUp.value = 'HangUp';
                     btnCall.disabled = true;
                     btnHangUp.disabled = false;
-                    btnTransfer.disabled = false;
+                    //btnTransfer.disabled = false;
                     //if (window.btnBFCP) window.btnBFCP.disabled = false;
 
                     if (bConnected) {
@@ -793,8 +807,8 @@ function onSipEventSession(e /* SIPml.Session.Event */) {
                         oSipSessionCall.bTransfering = false;
                         // this.AVSession.TransferCall(this.transferUri);
                     }
-                    btnHoldResume.value = 'Resume';
-                    btnHoldResume.disabled = false;
+                    //btnHoldResume.value = 'Resume';
+                    //btnHoldResume.disabled = false;
                     txtCallStatus.innerHTML = '<i>Call placed on hold</i>';
                     oSipSessionCall.bHeld = true;
                 }
@@ -804,8 +818,8 @@ function onSipEventSession(e /* SIPml.Session.Event */) {
             {
                 if(e.session == oSipSessionCall){
                     oSipSessionCall.bTransfering = false;
-                    btnHoldResume.value = 'Hold';
-                    btnHoldResume.disabled = false;
+                    //btnHoldResume.value = 'Hold';
+                    //btnHoldResume.disabled = false;
                     txtCallStatus.innerHTML = '<i>Failed to place remote party on hold</i>';
                 }
                 break;
@@ -814,8 +828,8 @@ function onSipEventSession(e /* SIPml.Session.Event */) {
             {
                 if(e.session == oSipSessionCall){
                     oSipSessionCall.bTransfering = false;
-                    btnHoldResume.value = 'Hold';
-                    btnHoldResume.disabled = false;
+                    //btnHoldResume.value = 'Hold';
+                    //btnHoldResume.disabled = false;
                     txtCallStatus.innerHTML = '<i>Call taken off hold</i>';
                     oSipSessionCall.bHeld = false;
 
@@ -830,7 +844,7 @@ function onSipEventSession(e /* SIPml.Session.Event */) {
             {
                 if(e.session == oSipSessionCall){
                     oSipSessionCall.bTransfering = false;
-                    btnHoldResume.disabled = false;
+                    //btnHoldResume.disabled = false;
                     txtCallStatus.innerHTML = '<i>Failed to unhold call</i>';
                 }
                 break;
@@ -876,7 +890,7 @@ function onSipEventSession(e /* SIPml.Session.Event */) {
             {
                 if(e.session == oSipSessionCall){
                     txtCallStatus.innerHTML = '<i>Call transfer completed</i>';
-                    btnTransfer.disabled = false;
+                    //btnTransfer.disabled = false;
                     if (oSipSessionTransferCall) {
                         oSipSessionCall = oSipSessionTransferCall;
                     }
@@ -889,7 +903,7 @@ function onSipEventSession(e /* SIPml.Session.Event */) {
             {
                 if(e.session == oSipSessionCall){
                     txtCallStatus.innerHTML = '<i>Call transfer failed</i>';
-                    btnTransfer.disabled = false;
+                    //btnTransfer.disabled = false;
                 }
                 break;
             }
@@ -902,7 +916,7 @@ function onSipEventSession(e /* SIPml.Session.Event */) {
                         if (oSipSessionCall.bHeld) {
                             oSipSessionCall.resume();
                         }
-                        btnTransfer.disabled = false;
+                        //btnTransfer.disabled = false;
                     }
                 }
                 break;
